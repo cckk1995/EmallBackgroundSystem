@@ -8,6 +8,7 @@ public enum EmBusinessError implements CommonError {
     // 通用错误类型 1000
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
     UNKNOWN_ERROR(10002, "未知错误"),
+    DATABASE_ERROR(1003,"sql语句执行错误"),
 
     // 2000 开头为用户信息相关错误定义
     USER_NOT_EXIST(20001, "用户不存在"),
@@ -19,6 +20,7 @@ public enum EmBusinessError implements CommonError {
 
     // 4000 开头为购物车信息错误定义
     SHOPPINGCART_ITEM_NOT_EXIST(40001, "购物车商品不存在");
+
 
     private  int errCode;
     private String errMsg;
