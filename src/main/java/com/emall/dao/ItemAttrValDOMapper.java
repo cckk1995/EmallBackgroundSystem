@@ -20,4 +20,5 @@ public interface ItemAttrValDOMapper {
      * @mbg.generated Thu Feb 21 10:15:21 CST 2019
      */
     int insertSelective(ItemAttrValDO record);
+    int deleteByItemId(String itemId);
 }

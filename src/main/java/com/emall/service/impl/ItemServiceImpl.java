@@ -1,13 +1,7 @@
 package com.emall.service.impl;
 
-import com.emall.dao.ItemAttrKeyDOMapper;
-import com.emall.dao.ItemAttrValDOMapper;
-import com.emall.dao.ItemDOMapper;
-import com.emall.dao.ItemStockDOMapper;
-import com.emall.dataobject.ItemAttrKeyDO;
-import com.emall.dataobject.ItemAttrValDO;
-import com.emall.dataobject.ItemDO;
-import com.emall.dataobject.ItemStockDO;
+import com.emall.dao.*;
+import com.emall.dataobject.*;
 import com.emall.error.BusinessException;
 import com.emall.error.EmBusinessError;
 import com.emall.service.ItemService;
@@ -30,6 +24,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemStockDOMapper itemStockDOMapper;
+
+    @Autowired
+    private CategoryDOMapper categoryDOMapper;
 
     /**
      *
@@ -56,6 +53,63 @@ public class ItemServiceImpl implements ItemService {
                 itemStockDOMapper.insert(itemStockDO);
             }
         }catch(Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteItem(String itemId) throws BusinessException {
+        if(itemId==null||itemId.equals("")){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        try{
+            itemDOMapper.deleteByPrimaryKey(itemId);
+            itemAttrKeyDOMapper.deleteByItemId(itemId);
+            itemAttrValDOMapper.deleteByItemId(itemId);
+            itemStockDOMapper.deleteByItemId(itemId);
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+    }
+
+    /**
+     * 添加商品的分类
+     * @param categoryDO
+     * @throws BusinessException
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void uploadCategory(CategoryDO categoryDO) throws BusinessException {
+        if(categoryDO==null){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        try{
+            categoryDOMapper.insert(categoryDO);
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+    }
+
+    /**
+     *
+     * @param categoryDO
+     * @throws BusinessException
+     */
+    @Override
+    public void modifyCategory(CategoryDO categoryDO) throws BusinessException {
+        try{
+            categoryDOMapper.updateByPrimaryKey(categoryDO);
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+    }
+
+    @Override
+    public void deleteCategory(int catId) throws BusinessException {
+        try {
+            categoryDOMapper.deleteByPrimaryKey(catId);
+        }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
     }

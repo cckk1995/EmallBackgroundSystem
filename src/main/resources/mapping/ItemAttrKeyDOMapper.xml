@@ -108,4 +108,8 @@
       attr_name = #{attrName,jdbcType=VARCHAR}
     where attr_key_id = #{attrKeyId,jdbcType=INTEGER}
   </update>
+
+  <delete id="deleteByItemId" parameterType="java.lang.String">
+      delete from em_item_attr_key where item_id = #{itemId}
+  </delete>
 </mapper>

@@ -52,4 +52,6 @@ public interface ItemAttrKeyDOMapper {
      * @mbg.generated Thu Feb 21 10:15:21 CST 2019
      */
     int updateByPrimaryKey(ItemAttrKeyDO record);
+
+    int deleteByItemId(String itemId);
 }

@@ -143,4 +143,7 @@
       stock = #{stock,jdbcType=INTEGER}
     where stock_id = #{stockId,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByItemId" parameterType="java.lang.String">
+    delete from em_item_stock where item_id = #{itemId}
+  </delete>
 </mapper>

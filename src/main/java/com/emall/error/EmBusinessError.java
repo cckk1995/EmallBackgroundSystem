@@ -8,7 +8,7 @@ public enum EmBusinessError implements CommonError {
     // 通用错误类型 1000
     PARAMETER_VALIDATION_ERROR(10001, "参数不合法"),
     UNKNOWN_ERROR(10002, "未知错误"),
-    DATABASE_ERROR(1003,"sql语句执行错误"),
+    DATABASE_ERROR(10003,"sql语句执行错误"),
 
     // 2000 开头为用户信息相关错误定义
     USER_NOT_EXIST(20001, "用户不存在"),

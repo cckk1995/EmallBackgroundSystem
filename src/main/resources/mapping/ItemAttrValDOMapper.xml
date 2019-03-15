@@ -66,4 +66,7 @@
       </if>
     </trim>
   </insert>
+  <delete id="deleteByItemId" parameterType="java.lang.String">
+    delete from em_item_attr_val where item_id = #{itemId}
+  </delete>
 </mapper>
