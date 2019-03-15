@@ -12,6 +12,7 @@
     <result column="item_title" jdbcType="VARCHAR" property="itemTitle" />
     <result column="item_sales" jdbcType="INTEGER" property="itemSales" />
     <result column="item_main_image" jdbcType="VARCHAR" property="itemMainImage" />
+    <result column="item_detail_image" jdbcType="VARCHAR" property="itemDetailImage" />
     <result column="item_intro_image" jdbcType="VARCHAR" property="itemIntroImage" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="update_time" jdbcType="VARCHAR" property="updateTime" />
@@ -212,4 +213,8 @@
       update_time = #{updateTime,jdbcType=VARCHAR}
     where item_id = #{itemId,jdbcType=VARCHAR}
   </update>
+
+  <select id="getAllItems" resultMap="BaseResultMap">
+    select * from em_item
+  </select>
 </mapper>

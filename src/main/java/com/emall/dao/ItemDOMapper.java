@@ -3,6 +3,8 @@ package com.emall.dao;
 import com.emall.dataobject.ItemDO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface ItemDOMapper {
     /**
@@ -60,4 +62,6 @@ public interface ItemDOMapper {
      * @mbg.generated Thu Feb 21 10:15:21 CST 2019
      */
     int updateByPrimaryKey(ItemDO record);
+
+    List<ItemDO> getAllItems();
 }
