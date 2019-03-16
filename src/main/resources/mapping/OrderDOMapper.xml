@@ -225,4 +225,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
+  <select id="getAllOrder" resultMap="BaseResultMap">
+    select * from em_order
+  </select>
 </mapper>
