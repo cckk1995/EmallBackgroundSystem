@@ -85,10 +85,10 @@ public class userServiceImpl implements UserService {
      * @throws BusinessException
      */
     @Override
-    public List<UserDO> getUsers() throws BusinessException {
+    public List<UserDO> getUsers(int status) throws BusinessException {
         List<UserDO> list = null;
         try{
-           list =  userDOMapper.getAllUser();
+           list =  userDOMapper.getAllUser(status);
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }

@@ -55,5 +55,5 @@ public interface UserDOMapper {
      */
     int updateByPrimaryKey(UserDO record);
 
-    List<UserDO> getAllUser();
+    List<UserDO> getAllUser(int status);
 }

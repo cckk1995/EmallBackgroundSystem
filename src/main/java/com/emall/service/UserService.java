@@ -14,6 +14,6 @@ public interface UserService {
     void deleteUser(String userId) throws BusinessException;
     void modifyUser(UserDO userDO) throws BusinessException;
     void addUser(UserDO userDO) throws BusinessException;
-    List<UserDO> getUsers() throws BusinessException;
+    List<UserDO> getUsers(int status) throws BusinessException;
     UserPasswordDO getPassword(String userId) throws  BusinessException;
 }

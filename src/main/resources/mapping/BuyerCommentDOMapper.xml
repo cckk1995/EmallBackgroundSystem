@@ -197,4 +197,8 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where buyer_comment_id = #{buyerCommentId,jdbcType=VARCHAR}
   </update>
+
+  <select id="getAllComment" resultMap="BaseResultMap">
+    select * from em_buyer_comment
+  </select>
 </mapper>

@@ -83,10 +83,10 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/getalluser",method = RequestMethod.GET)
-    public CommonReturnType getAllUser(){
+    public CommonReturnType getAllUser(@RequestParam(value = "status") int status){
         List<UserDO> list = null;
         try{
-            list = userService.getUsers();
+            list = userService.getUsers(status);
         }catch (BusinessException e){
             return CommonReturnType.create(e.getErrMsg(),"false");
         }

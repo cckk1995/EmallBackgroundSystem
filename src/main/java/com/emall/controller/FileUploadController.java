@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  *  Created by cckk1995 on 2019/3/14
  */
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @Controller
 public class FileUploadController {
 

@@ -10,6 +10,7 @@ import com.emall.service.ItemService;
 import com.emall.utils.DateTimeUtil;
 import com.emall.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class ItemController {
         return CommonReturnType.create(list);
     }
 
+    @Value("${snake.item.dataCenterId}")
+    private int dataCenterId;
+
     /**
      * 添加商品信息
      * @param jsonObject
@@ -44,7 +48,7 @@ public class ItemController {
     public CommonReturnType addItem(@RequestBody JSONObject jsonObject){
         JSONObject itemJson = jsonObject.getJSONObject("item");
         ItemDO itemDO = JSON.toJavaObject(itemJson,ItemDO.class);
-        SnowFlake snowFlake = new SnowFlake(3,3);
+        SnowFlake snowFlake = new SnowFlake(dataCenterId,3);
         String itemId = String.valueOf(snowFlake.nextId());
         itemDO.setItemId(itemId);
         itemDO.setCreateTime(new Date());
