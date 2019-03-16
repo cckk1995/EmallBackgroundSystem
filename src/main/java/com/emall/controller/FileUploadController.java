@@ -22,7 +22,6 @@ public class FileUploadController {
     @RequestMapping(value="/uploading",method = RequestMethod.POST)
     public @ResponseBody String uploadImg(@RequestParam("file")MultipartFile file,
                      HttpServletRequest request){
-        String contentType = file.getContentType();
         String fileName = file.getOriginalFilename();
         try{
             FileUtil.uploadFile(file.getBytes(),filePath,fileName);

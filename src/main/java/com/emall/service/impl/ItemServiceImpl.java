@@ -128,9 +128,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void uploadCategory(CategoryDO categoryDO) throws BusinessException {
-        if(categoryDO==null){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
         try{
             categoryDOMapper.insert(categoryDO);
         }catch (Exception e){
