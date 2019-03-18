@@ -154,4 +154,8 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where cat_id = #{catId,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllCategory" resultMap="BaseResultMap">
+    select * from em_category
+  </select>
 </mapper>

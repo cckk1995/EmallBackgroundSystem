@@ -3,6 +3,8 @@ package com.emall.dao;
 import com.emall.dataobject.BuyerCommentDO;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface BuyerCommentDOMapper {
     /**
@@ -60,4 +62,6 @@ public interface BuyerCommentDOMapper {
      * @mbg.generated Thu Feb 21 10:15:21 CST 2019
      */
     int updateByPrimaryKey(BuyerCommentDO record);
+
+    List<BuyerCommentDO> getAllComment();
 }

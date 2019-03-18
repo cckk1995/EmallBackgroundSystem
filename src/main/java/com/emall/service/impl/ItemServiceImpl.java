@@ -28,6 +28,18 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private CategoryDOMapper categoryDOMapper;
 
+
+    @Override
+    public List<ItemDO> getItems() throws BusinessException {
+        List<ItemDO> list = null;
+        try{
+            list = itemDOMapper.getAllItems();
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+        return list;
+    }
+
     /**
      *
      * @param item
@@ -58,6 +70,25 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void modifyItem(ItemDO item, List<ItemAttrKeyDO> itemAttrKeyDOS, List<ItemAttrValDO> itemAttrValDOS, List<ItemStockDO> itemStockDOS) throws BusinessException {
+        if(item==null){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        String itemId = item.getItemId();
+        try{
+            deleteItem(itemId);
+            uploadItem(item,itemAttrKeyDOS,itemAttrValDOS,itemStockDOS);
+        }catch (BusinessException e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+    }
+
+    /**
+     *
+     * @param itemId
+     * @throws BusinessException
+     */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteItem(String itemId) throws BusinessException {
         if(itemId==null||itemId.equals("")){
@@ -69,8 +100,25 @@ public class ItemServiceImpl implements ItemService {
             itemAttrValDOMapper.deleteByItemId(itemId);
             itemStockDOMapper.deleteByItemId(itemId);
         }catch (Exception e){
+            e.printStackTrace();
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
+    }
+
+    /**
+     * 返回所有的分类信息
+     * @return
+     * @throws BusinessException
+     */
+    @Override
+    public List<CategoryDO> getAllCategory() throws BusinessException{
+        List<CategoryDO> list = null;
+        try{
+            list = categoryDOMapper.getAllCategory();
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+        return list;
     }
 
     /**
@@ -81,9 +129,6 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void uploadCategory(CategoryDO categoryDO) throws BusinessException {
-        if(categoryDO==null){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
         try{
             categoryDOMapper.insert(categoryDO);
         }catch (Exception e){
