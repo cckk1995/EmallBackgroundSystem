@@ -100,6 +100,7 @@ public class ItemServiceImpl implements ItemService {
             itemAttrValDOMapper.deleteByItemId(itemId);
             itemStockDOMapper.deleteByItemId(itemId);
         }catch (Exception e){
+            e.printStackTrace();
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
     }
