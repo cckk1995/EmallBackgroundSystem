@@ -56,4 +56,7 @@ public interface CategoryDOMapper {
     int updateByPrimaryKey(CategoryDO record);
 
     List<CategoryDO> getAllCategory();
+    void deleteCategoryByName(String name);
+    int getCatIdByName(String name);
+    void deleteByParentId(int parentId);
 }

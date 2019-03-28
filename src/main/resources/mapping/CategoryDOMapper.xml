@@ -158,4 +158,16 @@
   <select id="getAllCategory" resultMap="BaseResultMap">
     select * from em_category
   </select>
+
+  <delete id="deleteCategoryByName" parameterType="java.lang.String">
+    delete from em_category where cat_name = #{cat_name}
+  </delete>
+
+  <select id="getCatIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select cat_id from em_category where cat_name = #{name}
+  </select>
+
+  <delete id="deleteByParentId" parameterType="java.lang.Integer">
+    delete from em_category where cat_parent_id = #{parentId}
+  </delete>
 </mapper>

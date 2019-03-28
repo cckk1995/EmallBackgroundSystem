@@ -8,6 +8,8 @@ import com.emall.service.ShufflingFigureDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShufflingFigureDataServiceImpl implements ShufflingFigureDataService {
 
@@ -37,6 +39,20 @@ public class ShufflingFigureDataServiceImpl implements ShufflingFigureDataServic
         try {
             shufflingFigureDataDOMapper.insert(shufflingFigureDataDO);
         } catch (Exception e) {
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+    }
+
+    /**
+     * 获得所有的轮播图
+     * @return
+     * @throws BusinessException
+     */
+    @Override
+    public List<ShufflingFigureDataDO> getAllShufflingFigure() throws BusinessException{
+        try{
+            return shufflingFigureDataDOMapper.getAllShufflingFigure();
+        }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
     }

@@ -165,6 +165,31 @@
 | create_time       | 创建时间        |                                |
 | update_time       | 更新时间        |                                |
 
+>### em_shufflingFigureData(轮播图表)
+
+| SQL字段名    | 对应中文名   | 键类型                         |
+| ------------ | ------------ | ------------------------------ |
+| Shuffling_id | 轮播图id     | 主键（雪花码生成 数据中心：7） |
+| source_url   | 跳转页面链接 |                                |
+| img_url      | 图片链接     |                                |
+| sorted       | 排序准则     |                                |
+| created_date | 创建时间     |                                |
+| updated_date | 更新时间     |                                |
+| item_id      | 商品ID       |                                |
+
+> ###em_navigation(首页导航栏表)
+
+| SQL字段名  | 对应中文名  | 键类型                         |
+| ---------- | ----------- | ------------------------------ |
+| id         | ID          | 主键（雪花码生成 数据中心：8） |
+| source_url | 页面跳转url |                                |
+| buy_url    |             |                                |
+| name       | 导航名称    |                                |
+| buy_status | 购买转态    |                                |
+| classify   | 分类名称    |                                |
+
+
+
 ## 数据库创建语句
 
 ```sql
@@ -339,4 +364,32 @@ CREATE TABLE `em_seller_comment` (
   `update_time` DATETIME DEFAULT NULL,
   PRIMARY KEY (`seller_comment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+DROP TABLE IF EXISTS `em_shufflingFigureData`;
+CREATE TABLE `em_shufflingFigureData` (
+  `shuffling_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `source_url` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `img_url` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `sorted` tinyint(1) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  `item_id` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`shuffling_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+DROP TABLE IF EXISTS `em_navigation`;
+CREATE TABLE `em_navigation` (
+  `id` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `source_url` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `buy_url` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `buy_status` tinyint(4) NOT NULL,
+  `classify` varchar(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 ```

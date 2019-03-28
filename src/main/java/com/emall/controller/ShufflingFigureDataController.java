@@ -6,7 +6,6 @@ import com.emall.dataobject.ShufflingFigureDataDO;
 import com.emall.error.BusinessException;
 import com.emall.response.CommonReturnType;
 import com.emall.service.ShufflingFigureDataService;
-import com.emall.utils.DateTimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,5 +66,19 @@ public class ShufflingFigureDataController {
             return CommonReturnType.create(e.getErrMsg(),"false");
         }
         return CommonReturnType.create("轮播图修改成功");
+    }
+
+    /**
+     * 获得所有的轮播图
+     * @return
+     */
+    @RequestMapping(value = "/getAllShuffleFigure",method = RequestMethod.GET)
+    public CommonReturnType getAllShufflingFigure(){
+        try{
+            return CommonReturnType.create(shufflingFigureDataService.getAllShufflingFigure());
+        }catch (BusinessException e){
+            e.printStackTrace();
+            return CommonReturnType.create(e.getErrMsg(),"false");
+        }
     }
 }
