@@ -201,7 +201,7 @@
       hometown = #{hometown,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-  <select id="getAllUser" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select * from em_user_info where user_status = #{status}
+  <select id="getAllUser" resultMap="BaseResultMap">
+    select * from em_user_info
   </select>
 </mapper>

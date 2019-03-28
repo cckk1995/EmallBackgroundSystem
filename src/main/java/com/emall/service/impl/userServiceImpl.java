@@ -1,5 +1,6 @@
 package com.emall.service.impl;
 
+import com.emall.controller.viewobject.UserVO;
 import com.emall.dao.UserDOMapper;
 import com.emall.dao.UserPasswordDOMapper;
 import com.emall.dataobject.UserDO;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("userService")
@@ -23,19 +25,22 @@ public class userServiceImpl implements UserService {
     private UserPasswordDOMapper userPasswordDOMapper;
 
     /**
-     * 删除指定userId的用户
-     * @param userId
+     * 删除指定userId组的用户
+     * @param idGroup  例如  id1,id2,id3
      * @throws BusinessException
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteUser(String userId) throws BusinessException {
-        if(userId==null||userId.equals("")){
+    public void deleteUsers(String idGroup) throws BusinessException {
+        if(idGroup==null||idGroup.equals("")){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         try{
-            userDOMapper.deleteByPrimaryKey(userId);
-            userPasswordDOMapper.deleteByUserId(userId);
+            String[] userIdS = idGroup.split(",");
+            for(String userId : userIdS) {
+                userDOMapper.deleteByPrimaryKey(userId);
+                userPasswordDOMapper.deleteByUserId(userId);
+            }
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
@@ -55,8 +60,8 @@ public class userServiceImpl implements UserService {
         }
         String userId = userDO.getUserId();
         try{
-            deleteUser(userId);
-            addUser(userDO);
+            userDOMapper.deleteByPrimaryKey(userId);
+            userDOMapper.insert(userDO);
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
@@ -68,13 +73,16 @@ public class userServiceImpl implements UserService {
      * @throws BusinessException
      */
     @Override
-    public void addUser(UserDO userDO) throws BusinessException {
-        if(userDO==null){
+    @Transactional(rollbackFor = Exception.class)
+    public void addUser(UserDO userDO,UserPasswordDO userPasswordDO) throws BusinessException {
+        if(userDO==null||userPasswordDO==null){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
         try{
             userDOMapper.insert(userDO);
+            userPasswordDOMapper.insert(userPasswordDO);
         }catch (Exception e){
+            e.printStackTrace();
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
     }
@@ -85,14 +93,20 @@ public class userServiceImpl implements UserService {
      * @throws BusinessException
      */
     @Override
-    public List<UserDO> getUsers(int status) throws BusinessException {
-        List<UserDO> list = null;
+    public List<UserVO> getUsers() throws BusinessException {
+        List<UserVO> userVOS = new ArrayList<>();
         try{
-           list =  userDOMapper.getAllUser(status);
+            List<UserDO> userDOS = userDOMapper.getAllUser();
+            for(UserDO userDO : userDOS){
+                String userId = userDO.getUserId();
+                UserPasswordDO userPasswordDO = userPasswordDOMapper.selectByUserId(userId);
+                userVOS.add(new UserVO(userDO,userPasswordDO));
+            }
         }catch (Exception e){
+            e.printStackTrace();
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
-        return list;
+        return userVOS;
     }
 
     /**

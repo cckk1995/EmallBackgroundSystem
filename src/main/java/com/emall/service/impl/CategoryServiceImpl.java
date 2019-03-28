@@ -7,6 +7,7 @@ import com.emall.error.EmBusinessError;
 import com.emall.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -53,6 +54,23 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(int catId) throws BusinessException {
         try{
             categoryDOMapper.deleteByPrimaryKey(catId);
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+    }
+
+    /**
+     * 根据分类名称删除
+     * @param name
+     * @throws BusinessException
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteCategoryByName(String name) throws BusinessException {
+        try{
+            int parentId = categoryDOMapper.getCatIdByName(name);
+            categoryDOMapper.deleteByPrimaryKey(parentId);
+            categoryDOMapper.deleteByParentId(parentId);
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }

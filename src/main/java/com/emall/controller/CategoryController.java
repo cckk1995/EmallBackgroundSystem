@@ -59,7 +59,7 @@ public class CategoryController {
     }
 
     /**
-     * 删除分类
+     * 根据分类id删除分类
      * @param catId
      * @return
      */
@@ -67,6 +67,21 @@ public class CategoryController {
     public CommonReturnType deleteCategory(@RequestParam(value = "catId") int catId){
         try{
             categoryService.deleteCategory(catId);
+        }catch (BusinessException e){
+            return CommonReturnType.create(e.getErrMsg(),"false");
+        }
+        return CommonReturnType.create("删除分类成功");
+    }
+
+    /**
+     * 更具分类名称删除
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/deleteByName", method = RequestMethod.POST)
+    public CommonReturnType deleteByName(@RequestParam(value = "categoryName") String name){
+        try{
+            categoryService.deleteCategoryByName(name);
         }catch (BusinessException e){
             return CommonReturnType.create(e.getErrMsg(),"false");
         }

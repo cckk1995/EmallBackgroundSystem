@@ -9,4 +9,5 @@ public interface CategoryService {
     List<CategoryDO> getAllCategory() throws BusinessException;
     void addCategory(CategoryDO categoryDO) throws BusinessException;
     void deleteCategory(int catId) throws BusinessException;
+    void deleteCategoryByName(String name) throws BusinessException;
 }
