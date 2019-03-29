@@ -63,11 +63,14 @@
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_category" domainObjectName="CategoryDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+               enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_navigation" domainObjectName="NavigationDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_shufflingFigureData" domainObjectName="ShufflingFigureDataDO" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <table tableName="em_admin_info" domainObjectName="AdminDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>

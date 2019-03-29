@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -60,24 +60,41 @@ public class UserController {
         }
         return CommonReturnType.create(userId);
     }
+
     /**
      * 修改用户信息
-     * @param jsonObject
+     * @param userName
+     * @param password
+     * @param address
+     * @param email
+     * @param phone
+     * @param gender
+     * @param avatarUrl
+     * @param hometown
+     * @param birthday
      * @return
      */
     @RequestMapping(value = "/modifyUser",method = RequestMethod.POST)
-    public CommonReturnType modifyUser(@RequestBody JSONObject jsonObject){
-        UserDO userDO = JSON.toJavaObject(jsonObject,UserDO.class);
-        if(userDO==null){
-            return CommonReturnType.create("用户信息不全","false");
-        }
-        try{
-            userService.modifyUser(userDO);
-        }catch (BusinessException e){
-            e.printStackTrace();
-            return CommonReturnType.create(e.getErrMsg(),"false");
-        }
-        return CommonReturnType.create("修改用户成功");
+    public CommonReturnType modifyUser(@RequestParam(value = "userId") String userId,
+                                       @RequestParam(value = "userName") String userName,
+                                       @RequestParam(value = "password") String password,
+                                       @RequestParam(value = "address") String[] address,
+                                       @RequestParam(value = "email") String email,
+                                       @RequestParam(value = "phone") String phone,
+                                       @RequestParam(value = "gender") String gender,
+                                       @RequestParam(value = "avatarUrl") String avatarUrl,
+                                       @RequestParam(value = "hometown") String[] hometown,
+                                       @RequestParam(value = "birthday") Date birthday){
+        boolean sex = gender.equals("男")?true:false;
+       UserDO userDO = new UserDO(userId,userName,true,"张三",phone,StringUtil.stringArrayToString(address),email,sex,avatarUrl,
+               birthday,StringUtil.stringArrayToString(hometown));
+       UserPasswordDO userPasswordDO = new UserPasswordDO(userId,password);
+       try{
+           userService.modifyUser(userDO,userPasswordDO);
+       }catch (BusinessException e){
+           return CommonReturnType.create(e.getErrCode()+":"+e.getErrMsg(),"false");
+       }
+       return CommonReturnType.create("修改用户成功！");
     }
 
     /**
@@ -115,7 +132,7 @@ public class UserController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/getpassword",method = RequestMethod.GET)
+    @RequestMapping(value = "/getPassword",method = RequestMethod.GET)
     public CommonReturnType getPassword(@RequestParam(value = "userId") String userId){
         if(userId==null||userId.equals("")){
             return CommonReturnType.create("没有选中要删除的用户","false");

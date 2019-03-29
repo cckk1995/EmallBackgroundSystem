@@ -54,14 +54,10 @@ public class userServiceImpl implements UserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void modifyUser(UserDO userDO) throws BusinessException {
-        if(userDO==null){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
-        String userId = userDO.getUserId();
+    public void modifyUser(UserDO userDO,UserPasswordDO userPasswordDO) throws BusinessException {
         try{
-            userDOMapper.deleteByPrimaryKey(userId);
-            userDOMapper.insert(userDO);
+            deleteUsers(userDO.getUserId());
+            addUser(userDO,userPasswordDO);
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
