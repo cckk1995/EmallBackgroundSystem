@@ -3,6 +3,8 @@ package com.emall.dao;
 import com.emall.dataobject.ItemStockDO;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public interface ItemStockDOMapper {
     /**
@@ -54,4 +56,6 @@ public interface ItemStockDOMapper {
     int updateByPrimaryKey(ItemStockDO record);
 
     int deleteByItemId(String itemId);
+
+    BigDecimal getMinPrice(String itemId);
 }

@@ -78,4 +78,8 @@
   <delete id="deleteByItemId" parameterType="java.lang.String">
     delete from em_item_stock where item_id = #{itemId}
   </delete>
+
+  <select id="getMinPrice" parameterType="java.lang.String" resultType="java.math.BigDecimal">
+    select MIN(price) from em_item_stock where item_id = #{itemId}
+  </select>
 </mapper>
