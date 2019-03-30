@@ -56,4 +56,6 @@ public interface UserDOMapper {
     int updateByPrimaryKey(UserDO record);
 
     List<UserDO> getAllUser();
+
+    String getUserNameByUserId(String userId);
 }

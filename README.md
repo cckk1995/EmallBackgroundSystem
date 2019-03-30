@@ -109,20 +109,25 @@
 
 > ### em_order 订单信息表
 
-| SQL 字段名   | 对应中文名   | 键类型                                                       |
-| ------------ | ------------ | ------------------------------------------------------------ |
-| order_id     | 订单号       | 主键（雪花码生成 数据中心：5）                               |
-| user_id      | 用户 id      | 外键（user_info.user_id)                                     |
-| payment      | 实际支付金额 | 单位为元，保留两位小数                                       |
-| postage      | 运费         | 单位为元                                                     |
-| order_status | 订单状态     | 0-已取消，1-未付款，2-已付款，3-已发货，4-交易成功，5-交易成功，6-交易关闭 |
-| total_price  | 订单总价     |                                                              |
-| payment_time | 支付时间     |                                                              |
-| send_time    | 发货时间     |                                                              |
-| end_time     | 交易完成时间 |                                                              |
-| close_time   | 交易关闭时间 |                                                              |
-| create_time  | 创建时间     |                                                              |
-| update_time  | 更新时间     |                                                              |
+| SQL 字段名     | 对应中文名   | 键类型                                                       |
+| -------------- | ------------ | ------------------------------------------------------------ |
+| order_id       | 订单号       | 主键（雪花码生成 数据中心：5）                               |
+| user_id        | 用户 id      | 外键（user_info.user_id)                                     |
+| payment        | 实际支付金额 | 单位为元，保留两位小数                                       |
+| postage        | 运费         | 单位为元                                                     |
+| order_status   | 订单状态     | 0-已取消，1-未付款，2-已付款，3-已发货，4-交易成功，5-交易成功，6-交易关闭 |
+| total_price    | 订单总价     |                                                              |
+| payment_time   | 支付时间     |                                                              |
+| send_time      | 发货时间     |                                                              |
+| end_time       | 交易完成时间 |                                                              |
+| close_time     | 交易关闭时间 |                                                              |
+| create_time    | 创建时间     |                                                              |
+| update_time    | 更新时间     |                                                              |
+| address_id     | 地址ID       |                                                              |
+| receiver_name  | 收件人姓名   |                                                              |
+| receiver_phone | 收件人电话   |                                                              |
+| address        | 收件人地址   |                                                              |
+| address_detail | 地址详情     |                                                              |
 
 > ### em_order_item 订单项表
 

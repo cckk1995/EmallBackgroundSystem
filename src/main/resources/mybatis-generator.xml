@@ -45,11 +45,11 @@
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_item_stock" domainObjectName="ItemStockDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false"></table>
+               enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
         <table tableName="em_order" domainObjectName="OrderDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="em_order_item" domainObjectName="OrderItemDO" enableCountByExample="false"
+       <!-- <table tableName="em_order_item" domainObjectName="OrderItemDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_shopping_cart" domainObjectName="ShoppingCartDO" enableCountByExample="false"
@@ -69,9 +69,9 @@
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_shufflingFigureData" domainObjectName="ShufflingFigureDataDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+               enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_admin_info" domainObjectName="AdminDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false"></table>
+               enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
     </context>
 </generatorConfiguration>

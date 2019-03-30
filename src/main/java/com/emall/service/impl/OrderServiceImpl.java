@@ -1,7 +1,9 @@
 package com.emall.service.impl;
 
+import com.emall.controller.viewobject.OrderVO;
 import com.emall.dao.OrderDOMapper;
 import com.emall.dao.OrderItemDOMapper;
+import com.emall.dao.UserDOMapper;
 import com.emall.dataobject.OrderDO;
 import com.emall.dataobject.OrderItemDO;
 import com.emall.error.BusinessException;
@@ -23,20 +25,26 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderItemDOMapper orderItemDOMapper;
 
+    @Autowired
+    private UserDOMapper userDOMapper;
+
     /**
      * 获得所有订单信息
      * @return
      * @throws BusinessException
      */
     @Override
-    public List<OrderDO> getAllOrder() throws BusinessException {
-        List<OrderDO> list = null;
+    public List<OrderVO> getAllOrder() throws BusinessException {
+        List<OrderVO> orderVOS = null;
         try{
-            list = orderDOMapper.getAllOrder();
+            List<OrderDO> orderDOS = orderDOMapper.getAllOrder();
+            for(OrderDO orderDO : orderDOS){
+                orderVOS.add(orderDOTOOrderVO(orderDO));
+            }
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
-        return list;
+        return orderVOS;
     }
 
     /**
@@ -95,5 +103,20 @@ public class OrderServiceImpl implements OrderService {
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
+    }
+
+    private OrderVO orderDOTOOrderVO(OrderDO orderDO) {
+        String userId = orderDO.getUserId();
+        OrderVO orderVO = new OrderVO();
+        orderVO.setOrderId(orderDO.getOrderId());
+        orderVO.setPayment(orderDO.getPayment());
+        orderVO.setUserName(userDOMapper.getUserNameByUserId(userId));
+        orderVO.setRemark("质量好，价格便宜");
+        orderVO.setOrderStatus(orderDO.getOrderStatus());
+        orderVO.setCloseDate(orderDO.getCloseTime());
+        orderVO.setCreatedDate(orderDO.getCreateTime());
+        orderVO.setPaymentDate(orderDO.getPaymentTime());
+        orderVO.setEndDate(orderDO.getEndTime());
+        return orderVO;
     }
 }

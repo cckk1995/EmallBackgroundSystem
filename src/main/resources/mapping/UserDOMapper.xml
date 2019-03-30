@@ -204,4 +204,8 @@
   <select id="getAllUser" resultMap="BaseResultMap">
     select * from em_user_info
   </select>
+
+  <select id="getUserNameByUserId" resultType="java.lang.String" parameterType="java.lang.String">
+    select user_name from em_user_info where user_id = #{userId}
+  </select>
 </mapper>
