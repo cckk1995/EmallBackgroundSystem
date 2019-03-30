@@ -5,10 +5,13 @@ import com.emall.dataobject.AdminDO;
 import com.emall.error.BusinessException;
 import com.emall.response.CommonReturnType;
 import com.emall.service.AdminService;
+import com.emall.utils.DateTimeUtil;
 import com.emall.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -77,8 +80,9 @@ public class AdminController {
                                         @RequestParam(value = "phone") String phone,
                                         @RequestParam(value = "gender") String gender,
                                         @RequestParam(value = "isUsed") boolean isUsed,
-                                        @RequestParam(value = "createdDate") Date createdDate){
+                                        @RequestParam(value = "createdDate") String dateString){
         boolean sex = gender.equals("男")?true:false;
+        Date createdDate = DateTimeUtil.StringTODate(dateString);
         Date updateDate = new Date();
         AdminDO adminDO = createAdmin(adminId,adminName,isUsed,password,phone,email,sex,createdDate,updateDate);
         try{

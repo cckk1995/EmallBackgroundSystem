@@ -8,11 +8,14 @@ import com.emall.dataobject.UserPasswordDO;
 import com.emall.error.BusinessException;
 import com.emall.response.CommonReturnType;
 import com.emall.service.UserService;
+import com.emall.utils.DateTimeUtil;
 import com.emall.utils.SnowFlake;
 import com.emall.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -71,7 +74,7 @@ public class UserController {
      * @param gender
      * @param avatarUrl
      * @param hometown
-     * @param birthday
+     * @param birthdayString
      * @return
      */
     @RequestMapping(value = "/modifyUser",method = RequestMethod.POST)
@@ -84,9 +87,11 @@ public class UserController {
                                        @RequestParam(value = "gender") String gender,
                                        @RequestParam(value = "avatarUrl") String avatarUrl,
                                        @RequestParam(value = "hometown") String[] hometown,
-                                       @RequestParam(value = "birthday") Date birthday){
+                                       @RequestParam(value = "birthday") String birthdayString){
+
         boolean sex = gender.equals("男")?true:false;
-       UserDO userDO = new UserDO(userId,userName,true,"张三",phone,StringUtil.stringArrayToString(address),email,sex,avatarUrl,
+        Date birthday = DateTimeUtil.StringTODate(birthdayString);
+        UserDO userDO = new UserDO(userId,userName,true,"张三",phone,StringUtil.stringArrayToString(address),email,sex,avatarUrl,
                birthday,StringUtil.stringArrayToString(hometown));
        UserPasswordDO userPasswordDO = new UserPasswordDO(userId,password);
        try{
