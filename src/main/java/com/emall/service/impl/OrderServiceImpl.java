@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,14 +36,15 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderVO> getAllOrder() throws BusinessException {
-        List<OrderVO> orderVOS = null;
+        List<OrderVO> orderVOS = new ArrayList<>();
+        List<OrderDO> orderDOS = null;
         try{
-            List<OrderDO> orderDOS = orderDOMapper.getAllOrder();
-            for(OrderDO orderDO : orderDOS){
-                orderVOS.add(orderDOTOOrderVO(orderDO));
-            }
+            orderDOS = orderDOMapper.getAllOrder();
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+        for(OrderDO orderDO : orderDOS){
+            orderVOS.add(orderDOTOOrderVO(orderDO));
         }
         return orderVOS;
     }
@@ -80,6 +82,7 @@ public class OrderServiceImpl implements OrderService {
             OrderDO orderDO = orderDOMapper.selectByPrimaryKey(orderId);
             orderDO.setOrderStatus(status);
             orderDO.setUpdateTime(new Date());
+            orderDO.setEndTime(new Date());
             orderDOMapper.deleteByPrimaryKey(orderId);
             orderDOMapper.insert(orderDO);
         }catch (Exception e){
@@ -89,17 +92,18 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 删除订单
-     * @param orderId
+     * @param idGroup
      * @throws BusinessException
      */
     @Override
-    public void deleteOrder(String orderId) throws BusinessException {
-        if(orderId==null||orderId.equals("")){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
-        }
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteOrder(String idGroup) throws BusinessException {
+        String[] orderIdS = idGroup.split(",");
         try{
-            orderDOMapper.deleteByPrimaryKey(orderId);
-            orderItemDOMapper.deleteByOrderId(orderId);
+            for(String orderId : orderIdS) {
+                orderDOMapper.deleteByPrimaryKey(orderId);
+                orderItemDOMapper.deleteByOrderId(orderId);
+            }
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }

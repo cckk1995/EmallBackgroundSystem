@@ -4,6 +4,7 @@ import com.emall.dataobject.OrderDO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public interface OrderDOMapper {
@@ -56,4 +57,6 @@ public interface OrderDOMapper {
     int updateByPrimaryKey(OrderDO record);
 
     List<OrderDO> getAllOrder();
+
+    int updateOrderStatus(Map<String,String> map);
 }

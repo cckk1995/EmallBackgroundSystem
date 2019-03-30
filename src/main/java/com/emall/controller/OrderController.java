@@ -1,5 +1,6 @@
 package com.emall.controller;
 
+import com.emall.controller.viewobject.OrderVO;
 import com.emall.dataobject.OrderItemDO;
 import com.emall.error.BusinessException;
 import com.emall.response.CommonReturnType;
@@ -23,10 +24,11 @@ public class OrderController {
      */
     @RequestMapping(value = "/getAllOrder",method = RequestMethod.GET)
     public CommonReturnType getAllOrder(){
-        List<OrderDO> list = null;
+        List<OrderVO> list = null;
         try{
             list = orderService.getAllOrder();
         }catch (BusinessException e){
+            e.printStackTrace();
             return CommonReturnType.create(e.getErrMsg(),"false");
         }
         return CommonReturnType.create(list);
@@ -68,13 +70,13 @@ public class OrderController {
 
     /**
      * 删除订单
-     * @param orderId
+     * @param idGroup
      * @return
      */
     @RequestMapping(value = "/deleteOrder",method = RequestMethod.GET)
-    public CommonReturnType deleteOrder(@RequestParam(value = "orderId") String orderId){
+    public CommonReturnType deleteOrder(@RequestParam(value = "idGroup") String idGroup){
         try{
-            orderService.deleteOrder(orderId);
+            orderService.deleteOrder(idGroup);
         }catch (BusinessException e){
             e.printStackTrace();
             return CommonReturnType.create(e.getErrMsg(),"false");

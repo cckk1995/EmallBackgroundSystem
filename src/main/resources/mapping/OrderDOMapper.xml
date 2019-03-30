@@ -289,4 +289,8 @@
   <select id="getAllOrder" resultMap="BaseResultMap">
     select * from em_order
   </select>
+
+  <update id="updateOrderStatus" parameterType="java.util.Map">
+    update em_order set order_status = #{orderStatus} where order_id = #{orderId}
+  </update>
 </mapper>
