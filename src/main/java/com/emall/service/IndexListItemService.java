@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IndexListItemService {
     List<IndexListItemVO> getAllIndexListItem(int listId) throws BusinessException;
-    void modifyIndexListItem(IndexListItemDO indexListItemDO) throws BusinessException;
+    void modifyIndexListItem(String oldItemId,IndexListItemDO indexListItemDO) throws BusinessException;
 }

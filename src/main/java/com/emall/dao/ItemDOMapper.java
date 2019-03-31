@@ -64,4 +64,8 @@ public interface ItemDOMapper {
     int updateByPrimaryKey(ItemDO record);
 
     List<ItemDO> getAllItems();
+
+    List<ItemDO> getByCatId(int catId);
+
+    ItemDO getByItemId(String itemId);
 }

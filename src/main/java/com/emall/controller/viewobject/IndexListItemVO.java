@@ -7,7 +7,7 @@ public class IndexListItemVO {
     private String sourceUrl;
     private String imgUrl;
     private String title;
-    private String desc;
+    private String intro;
     private BigDecimal price;
     private BigDecimal oldPrice;
     private String discountType;
@@ -44,14 +44,6 @@ public class IndexListItemVO {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public BigDecimal getPrice() {
@@ -92,5 +84,13 @@ public class IndexListItemVO {
 
     public void setSorted(int sorted) {
         this.sorted = sorted;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 }

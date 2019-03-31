@@ -1,5 +1,6 @@
 package com.emall.service.impl;
 
+import com.emall.controller.viewobject.ItemVO;
 import com.emall.dao.*;
 import com.emall.dataobject.*;
 import com.emall.error.BusinessException;
@@ -9,7 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service("itemService")
 public class ItemServiceImpl implements ItemService {
 
@@ -157,5 +162,41 @@ public class ItemServiceImpl implements ItemService {
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
+    }
+
+    @Override
+    public List<ItemVO> getItemVOByCatId(int catId) throws BusinessException {
+        List<ItemVO> itemVOS = new ArrayList<>();
+        List<ItemDO> itemDOS = null;
+        try{
+            itemDOS = itemDOMapper.getByCatId(catId);
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+        for(ItemDO itemDO : itemDOS){
+            itemVOS.add(itemDOTOItemVO(itemDO));
+        }
+        return itemVOS;
+    }
+
+    @Override
+    public Map<String, Object> getItemDetail(String itemId) throws BusinessException {
+        ItemDO itemDO = null;
+        Map<String,Object> map = new HashMap<>();
+        try{
+            itemDO = itemDOMapper.getByItemId(itemId);
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+        map.put("price",itemStockDOMapper.getMinPrice(itemId));
+        map.put("imgUrl",itemDO.getItemMainImage());
+        return map;
+    }
+
+    private ItemVO itemDOTOItemVO(ItemDO itemDO){
+        ItemVO itemVO = new ItemVO();
+        itemVO.setItemId(itemDO.getItemId());
+        itemVO.setTitle(itemDO.getItemTitle());
+        return itemVO;
     }
 }

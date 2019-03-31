@@ -3,6 +3,7 @@ package com.emall.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.emall.controller.viewobject.ItemVO;
 import com.emall.dataobject.*;
 import com.emall.error.BusinessException;
 import com.emall.response.CommonReturnType;
@@ -13,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/item")
@@ -205,5 +204,33 @@ public class ItemController {
             return CommonReturnType.create(e.getErrMsg(),"false");
         }
         return CommonReturnType.create("分类删除成功");
+    }
+
+    @RequestMapping(value = "/getByCatId",method = RequestMethod.GET)
+    public CommonReturnType getByCatId(@RequestParam(value = "catId") String catIdGroup){
+        String[] catIdS = catIdGroup.split(",");
+        List<ItemVO> itemVOS = new ArrayList<>();
+        try{
+            for(String s : catIdS){
+                int catId = Integer.valueOf(s);
+                itemVOS.addAll(itemService.getItemVOByCatId(catId));
+            }
+        }catch (BusinessException e){
+            e.printStackTrace();
+            return CommonReturnType.create(e.getErrCode()+":"+e.getErrMsg(),"false");
+        }
+        return CommonReturnType.create(itemVOS);
+    }
+
+    @RequestMapping(value = "/getItemDetail",method = RequestMethod.GET)
+    public CommonReturnType getItemDetail(@RequestParam(value = "itemId") String itemId){
+        Map<String,Object> map = null;
+        try{
+            map = itemService.getItemDetail(itemId);
+        }catch (BusinessException e){
+            e.printStackTrace();
+            return CommonReturnType.create(e.getErrCode()+":"+e.getErrMsg(),"false");
+        }
+        return CommonReturnType.create(map);
     }
 }

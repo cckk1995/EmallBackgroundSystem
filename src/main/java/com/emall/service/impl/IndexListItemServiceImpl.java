@@ -62,10 +62,9 @@ public class IndexListItemServiceImpl implements IndexListItemService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void modifyIndexListItem(IndexListItemDO indexListItemDO) throws BusinessException {
-        String itemId = indexListItemDO.getItemId();
+    public void modifyIndexListItem(String oldItemId,IndexListItemDO indexListItemDO) throws BusinessException {
         try{
-            indexListItemDOMapper.deleteByPrimaryKey(itemId);
+            indexListItemDOMapper.deleteByItemId(oldItemId);
             indexListItemDOMapper.insert(indexListItemDO);
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
@@ -74,12 +73,12 @@ public class IndexListItemServiceImpl implements IndexListItemService {
 
     private IndexListItemVO indexListItemDOTOIndexListItemVO(IndexListItemDO indexListItemDO){
         String itemId  = indexListItemDO.getItemId();
-        ItemDO itemDO = itemDOMapper.selectByPrimaryKey(itemId);
+        ItemDO itemDO = itemDOMapper.getByItemId(itemId);
         IndexListItemVO indexListItemVO = new IndexListItemVO();
         indexListItemVO.setId(itemId);
-        indexListItemVO.setDesc(indexListItemDO.getDesc());
+        indexListItemVO.setIntro(indexListItemDO.getIntro());
         indexListItemVO.setDiscount(indexListItemDO.getDiscount());
-        indexListItemDO.setDiscountType(indexListItemDO.getDiscountType());
+        indexListItemVO.setDiscountType(indexListItemDO.getDiscountType());
         indexListItemVO.setSorted(indexListItemDO.getSorted());
         indexListItemVO.setSourceUrl(indexListItemDO.getSourceUrl());
         indexListItemVO.setOldPrice(indexListItemDO.getOldPrice());

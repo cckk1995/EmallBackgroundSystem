@@ -28,17 +28,18 @@ public class IndexListItemController {
     }
 
     @RequestMapping(value = "/modifyItem",method = RequestMethod.POST)
-    public CommonReturnType modifyItem(@RequestParam(value = "itemId") String itemId,
+    public CommonReturnType modifyItem(@RequestParam(value = "oldItemId") String oldItemId,
+                                       @RequestParam(value = "itemId") String itemId,
                                        @RequestParam(value = "listId") int listId,
                                        @RequestParam(value = "sourceUrl") String sourceUrl,
-                                       @RequestParam(value = "desc") String desc,
+                                       @RequestParam(value = "intro") String intro,
                                        @RequestParam(value = "oldPrice")BigDecimal oldPrice,
                                        @RequestParam(value = "discountType") String discountType,
                                        @RequestParam(value = "discount") String discount,
                                        @RequestParam(value = "sorted") int sorted){
-        IndexListItemDO indexListItemDO = createIndexListItemDO(itemId,listId,sourceUrl,desc,oldPrice,discountType,discount,sorted);
+        IndexListItemDO indexListItemDO = createIndexListItemDO(itemId,listId,sourceUrl,intro,oldPrice,discountType,discount,sorted);
         try{
-            indexListItemService.modifyIndexListItem(indexListItemDO);
+            indexListItemService.modifyIndexListItem(oldItemId,indexListItemDO);
         }catch (BusinessException e){
             e.printStackTrace();
             return CommonReturnType.create(e.getErrCode()+":"+e.getErrMsg(),"false");
@@ -46,14 +47,14 @@ public class IndexListItemController {
         return CommonReturnType.create("修改成功");
     }
 
-    private IndexListItemDO createIndexListItemDO(String itemId,int listId,String sourceUrl,
-                                                  String desc,BigDecimal oldPrice,String discountType,
-                                                  String discount,int sorted){
+    private IndexListItemDO createIndexListItemDO(String itemId, int listId, String sourceUrl,
+                                                  String intro, BigDecimal oldPrice, String discountType,
+                                                  String discount, int sorted){
         IndexListItemDO indexListItemDO = new IndexListItemDO();
         indexListItemDO.setItemId(itemId);
         indexListItemDO.setDiscountType(discountType);
         indexListItemDO.setDiscount(discount);
-        indexListItemDO.setDesc(desc);
+        indexListItemDO.setIntro(intro);
         indexListItemDO.setSourceUrl(sourceUrl);
         indexListItemDO.setListId(listId);
         indexListItemDO.setOldPrice(oldPrice);
