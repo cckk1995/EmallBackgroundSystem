@@ -7,6 +7,7 @@ import com.emall.error.EmBusinessError;
 import com.emall.service.ShufflingFigureDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,9 +18,13 @@ public class ShufflingFigureDataServiceImpl implements ShufflingFigureDataServic
     private ShufflingFigureDataDOMapper shufflingFigureDataDOMapper;
 
     @Override
-    public void deleteShufflingFigureData(String shufflingId) throws BusinessException {
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteShufflingFigureData(String idGroup) throws BusinessException {
         try {
-            shufflingFigureDataDOMapper.deleteByPrimaryKey(shufflingId);
+            String[] ids = idGroup.split(",");
+            for(String shufflingId : ids) {
+                shufflingFigureDataDOMapper.deleteByPrimaryKey(shufflingId);
+            }
         } catch (Exception e) {
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }

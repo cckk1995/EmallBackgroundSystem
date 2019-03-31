@@ -1,5 +1,6 @@
 package com.emall.service.impl;
 
+import com.emall.controller.viewobject.CategoryVO;
 import com.emall.dao.CategoryDOMapper;
 import com.emall.dataobject.CategoryDO;
 import com.emall.error.BusinessException;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -74,5 +76,29 @@ public class CategoryServiceImpl implements CategoryService {
         }catch (Exception e){
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
+    }
+
+    @Override
+    public List<CategoryVO> getAllCategoryVO() throws BusinessException {
+        List<CategoryVO> categoryVOS = new ArrayList<>();
+        List<CategoryDO> categoryDOS = null;
+        try{
+            categoryDOS = categoryDOMapper.getAllCategory();
+            for(CategoryDO categoryDO:categoryDOS){
+                if(categoryDO.getCatParentId()!=0){
+                    categoryVOS.add(categoryDOtoCategoryVO(categoryDO));
+                }
+            }
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+        return categoryVOS;
+    }
+
+    private CategoryVO categoryDOtoCategoryVO(CategoryDO categoryDO){
+        CategoryVO categoryVO = new CategoryVO();
+        categoryVO.setCategoryId(categoryDO.getCatId());
+        categoryVO.setCategoryName(categoryDO.getCatName());
+        return categoryVO;
     }
 }

@@ -26,7 +26,18 @@ public class CategoryController {
         try{
             return CommonReturnType.create(categoryService.getAllCategory());
         }catch (BusinessException e){
-            return CommonReturnType.create(CrossOrigin.class,"false");
+            e.printStackTrace();
+            return CommonReturnType.create(e.getErrCode()+":"+e.getErrMsg(),"false");
+        }
+    }
+
+    @RequestMapping(value = "getAllCategoryVO",method = RequestMethod.GET)
+    public CommonReturnType getAllCategoryVO(){
+        try{
+            return CommonReturnType.create(categoryService.getAllCategoryVO());
+        }catch (BusinessException e){
+            e.printStackTrace();
+            return CommonReturnType.create(e.getErrCode()+":"+e.getErrMsg(),"false");
         }
     }
 

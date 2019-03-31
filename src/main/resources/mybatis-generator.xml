@@ -66,18 +66,18 @@
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_navigation" domainObjectName="NavigationDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false"></table>
+               enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
         <table tableName="em_shufflingFigureData" domainObjectName="ShufflingFigureDataDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="em_admin_info" domainObjectName="AdminDO" enableCountByExample="false"
+        <!-- <table tableName="em_admin_info" domainObjectName="AdminDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_index_list" domainObjectName="IndexListDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
+               enableSelectByExample="false" selectByExampleQueryId="false"></table>
         <table tableName="em_index_list_item" domainObjectName="IndexListItemDO" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false"></table>
+               enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
     </context>
 </generatorConfiguration>

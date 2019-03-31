@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface ShufflingFigureDataService {
     void uploadShufflingFigureData(ShufflingFigureDataDO shufflingFigureDataDO) throws BusinessException;
-    void deleteShufflingFigureData(String shufflingId) throws BusinessException;
+    void deleteShufflingFigureData(String idGroup) throws BusinessException;
     void modifyShufflingFigureData(ShufflingFigureDataDO shufflingFigureDataDO) throws BusinessException;
     List<ShufflingFigureDataDO> getAllShufflingFigure() throws BusinessException;
 }
