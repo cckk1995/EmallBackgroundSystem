@@ -193,4 +193,8 @@
   <delete id="deleteByOrderId" parameterType="java.lang.String">
     delete from em_order_item where order_id = #{orderId}
   </delete>
+
+  <select id="getAmountByOrderId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select sum(amount) from em_order_item where order_id = #{orderId}
+  </select>
 </mapper>

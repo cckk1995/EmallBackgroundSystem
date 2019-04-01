@@ -58,4 +58,6 @@ public interface OrderItemDOMapper {
     List<OrderItemDO> getOrderItemByOrderId(String orderId);
 
     int deleteByOrderId(String orderId);
+
+    int getAmountByOrderId(String orderId);
 }
