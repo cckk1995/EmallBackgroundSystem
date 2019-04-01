@@ -223,6 +223,7 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/getItemDetail",method = RequestMethod.GET)
+    @ResponseBody
     public CommonReturnType getItemDetail(@RequestParam(value = "itemId") String itemId){
         Map<String,Object> map = null;
         try{
