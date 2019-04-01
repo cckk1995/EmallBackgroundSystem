@@ -92,6 +92,15 @@ public class AdminController {
         return CommonReturnType.create("管理员添加成功");
     }
 
+    @RequestMapping(value = "/getPassword",method = RequestMethod.GET)
+    public CommonReturnType getPassword(@RequestParam(value = "adminName") String adminName){
+        try{
+            return CommonReturnType.create(adminService.getPassword(adminName));
+        }catch (BusinessException e){
+            return CommonReturnType.create(e.getErrCode()+":"+e.getErrMsg(),"false");
+        }
+    }
+
     private AdminDO createAdmin(String adminId,String adminName,boolean isUsed,
                    String password,String phone,String email,boolean gender,Date createdDate,Date updatedDate){
         AdminDO adminDO = new AdminDO();

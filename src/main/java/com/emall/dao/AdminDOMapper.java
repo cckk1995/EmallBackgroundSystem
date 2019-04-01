@@ -1,6 +1,7 @@
 package com.emall.dao;
 
 import com.emall.dataobject.AdminDO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -56,4 +57,6 @@ public interface AdminDOMapper {
     int updateByPrimaryKey(AdminDO record);
 
     List<AdminDO> getAllAdmin();
+
+    String getPassword(@Param("adminName") String adminName);
 }

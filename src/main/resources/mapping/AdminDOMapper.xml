@@ -182,4 +182,8 @@
   <select id="getAllAdmin" resultMap="BaseResultMap">
     select * from em_admin_info
   </select>
+
+  <select id="getPassword" parameterType="java.lang.String" resultType="java.lang.String">
+    select password from em_admin_info where admin_name = #{adminName}
+  </select>
 </mapper>

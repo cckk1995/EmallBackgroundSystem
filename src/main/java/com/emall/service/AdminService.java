@@ -13,4 +13,5 @@ public interface AdminService {
     void deleteAdminByIdGroup(String idGroup) throws BusinessException;
     void addAdmin(AdminDO adminDO) throws BusinessException;
     void modifyAdmin(AdminDO adminDO) throws BusinessException;
+    String getPassword(String userName) throws BusinessException;
 }

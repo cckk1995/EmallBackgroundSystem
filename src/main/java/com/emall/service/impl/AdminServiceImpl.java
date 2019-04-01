@@ -78,4 +78,18 @@ public class AdminServiceImpl implements AdminService {
             throw new BusinessException(EmBusinessError.DATABASE_ERROR);
         }
     }
+
+    @Override
+    public String getPassword(String adminName) throws BusinessException {
+        String password;
+        try {
+            password = adminDOMapper.getPassword(adminName);
+        }catch (Exception e){
+            throw new BusinessException(EmBusinessError.DATABASE_ERROR);
+        }
+        if(password==null){
+            throw new BusinessException(EmBusinessError.USER_NOT_EXIST);
+        }
+        return password;
+    }
 }
