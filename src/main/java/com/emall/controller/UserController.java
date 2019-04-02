@@ -1,7 +1,5 @@
 package com.emall.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.emall.controller.viewobject.UserVO;
 import com.emall.dataobject.UserDO;
 import com.emall.dataobject.UserPasswordDO;
@@ -14,8 +12,6 @@ import com.emall.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +49,7 @@ public class UserController {
         SnowFlake snowFlake = new SnowFlake(1,1);
         boolean sex = gender.equals("男")?true:false;
         String userId = String.valueOf(snowFlake.nextId());
-        UserDO userDO = new UserDO(userId,userName,true,"无",phone,StringUtil.stringArrayToString(address),email,sex,avatarUrl,birthday, StringUtil.stringArrayToString(hometown));
+        UserDO userDO = createUserDO(userId,userName,"无",phone,StringUtil.stringArrayToString(address),email,sex,avatarUrl,birthday, StringUtil.stringArrayToString(hometown));
         UserPasswordDO userPasswordDO = new UserPasswordDO(userId,password);
         try{
             userService.addUser(userDO,userPasswordDO);
@@ -91,7 +87,7 @@ public class UserController {
 
         boolean sex = gender.equals("男")?true:false;
         Date birthday = DateTimeUtil.StringTODate(birthdayString);
-        UserDO userDO = new UserDO(userId,userName,true,"张三",phone,StringUtil.stringArrayToString(address),email,sex,avatarUrl,
+        UserDO userDO = createUserDO(userId,userName,"张三",phone,StringUtil.stringArrayToString(address),email,sex,avatarUrl,
                birthday,StringUtil.stringArrayToString(hometown));
        UserPasswordDO userPasswordDO = new UserPasswordDO(userId,password);
        try{
@@ -149,5 +145,23 @@ public class UserController {
             return CommonReturnType.create(e.getErrMsg(),"false");
         }
         return CommonReturnType.create("成功获取密码");
+    }
+
+    private UserDO createUserDO(String userId,String userName,String realName,
+                                String telephone,String address,String email,
+                                boolean gender,String avatarUrl,Date birthday,
+                                String hometown){
+        UserDO userDO = new UserDO();
+        userDO.setUserId(userId);
+        userDO.setUserName(userName);
+        userDO.setRealName(realName);
+        userDO.setTelephone(telephone);
+        userDO.setAddress(address);
+        userDO.setEmail(email);
+        userDO.setGender(gender);
+        userDO.setAvatarUrl(avatarUrl);
+        userDO.setBirthday(birthday);
+        userDO.setHometown(hometown);
+        return userDO;
     }
 }

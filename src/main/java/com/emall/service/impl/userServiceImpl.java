@@ -54,7 +54,7 @@ public class userServiceImpl implements UserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void modifyUser(UserDO userDO,UserPasswordDO userPasswordDO) throws BusinessException {
+    public void modifyUser(UserDO userDO, UserPasswordDO userPasswordDO) throws BusinessException {
         try{
             deleteUsers(userDO.getUserId());
             addUser(userDO,userPasswordDO);

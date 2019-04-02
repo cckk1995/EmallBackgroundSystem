@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface UserService {
     void deleteUsers(String idGroup) throws BusinessException;
-    void modifyUser(UserDO userDO,UserPasswordDO userPasswordDO) throws BusinessException;
+    void modifyUser(UserDO userDO, UserPasswordDO userPasswordDO) throws BusinessException;
     void addUser(UserDO userDO,UserPasswordDO userPasswordDO) throws BusinessException;
     List<UserVO> getUsers() throws BusinessException;
     UserPasswordDO getPassword(String userId) throws  BusinessException;
